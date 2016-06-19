@@ -1,0 +1,32 @@
+
+<script type="text/javascript">
+    RED.nodes.registerType('modbus-out',{
+        category: 'output',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:"modbus-out"},
+            master: {value:"", type:"modbus-master"}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "file.png",
+        label: function() {
+            return this.name||"modbus-out";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="modbus-out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+     	<label for="node-input-master"><i class="icon-tag"></i> Modbus master</label>
+     	<input type="text" id="node-input-master">
+ 	</div>
+</script>
+
+<script type="text/x-red" data-help-name="modbus-out">
+    <p>A simple node that converts the message payloads into all modbus-serial characters</p>
+</script>

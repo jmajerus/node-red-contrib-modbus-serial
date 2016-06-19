@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    RED.nodes.registerType('modbus-master',{
+        category: 'config',
+        defaults: {
+            mode: {value:"RTU",required:true},
+            port: {value:"ttyUSB0",required:true},
+        },
+        label: function() {
+            return this.mode+":"+this.port;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="modbus-master">
+    <div class="form-row">
+        <label for="node-config-input-mode"><i class="icon-bookmark"></i> RTU or ASCII</label>
+        <input type="text" id="node-config-input-mode">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="icon-bookmark"></i> Serial Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+</script>
