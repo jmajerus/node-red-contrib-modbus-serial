@@ -1,6 +1,6 @@
 /**
- * MODBUS node-red-contrib module author: John Majerus version: 2016.1
- * 
+ * node-red-contrib-modbus-serial module author: John Majerus input command in
+ * format: open/close <device#> <relay#>
  */
 
 function onOpen(err) {
@@ -17,51 +17,16 @@ function onOpen(err) {
 		// write the values 0, 0xffff to registers starting at address
 		// on device number n.
 		if (!node.master.serialPort.isOpen()) {
-			log("modbus serial port is not open");
+			node.log("opening serial port");
 			node.master.serialPort.open();
 		}
 		if (node.master.serialPort.isOpen()) {
-			log("modbus serial port is open");
+			node.log("modbus serial port is open");
 		}
-	
-		result = node.master.client.writeRegister(parseInt(registers[1]), address);
+
+		result = node.master.client.writeRegister(parseInt(registers[1]),
+				address);
 		node.warn("write " + node.master.port);
-
-	}
-	function read() {
-		// read the 2 registers starting at address
-		// on device number 1.
-		// this.warn("read");
-		function readHoldingRegister(reg) {
-			node.master.client.readHoldingRegisters(reg, 1).then(display);
-		}
-
-		switch (cmd) {
-		case "open1": {
-			readHoldingRegister(1);
-			break;
-		}
-		case "open2": {
-			readHoldingRegister(2);
-			break;
-		}
-		case "close1": {
-			readHoldingRegister(1);
-			break;
-		}
-		case "close2": {
-			readHoldingRegister(2);
-			break;
-		}
-		case "read1": {
-			readHoldingRegister(1);
-			break;
-		}
-		case "read2": {
-			readHoldingRegister(2);
-			break;
-		}
-		}
 	}
 
 	if (err) {
@@ -89,15 +54,16 @@ module.exports = function(RED) {
 				node.warn("Modbus client unavailable");
 
 			if (!node.master.serialPort.isOpen()) {
-				log("modbus serial port reconnect");
-				node.master.reconnect();
+				node.log("modbus serial port connect");
+				node.master.connect();
 			}
 			this.on('input', function(msg) {
 				node.cmd = msg.payload;
 				node.master.client.open(onOpen);
 			});
 			this.on('close', function() {
-				// tidy up any async code here - shutdown connections and so on.
+				// tidy up any async code here - shutdown connections and so
+				// on.
 				if (node.master.serialPort.isOpen()) {
 					node.master.serialPort.close();
 				}
@@ -107,14 +73,14 @@ module.exports = function(RED) {
 				node.warn(err.stack);
 			});
 			node.master.serialPort.on('open', function() {
-				log("serial port open");
+				node.log("serial port open");
 			});
 			node.master.serialPort.on('close', function() {
-				log("serial port close");
+				node.log("serial port close");
 			});
 
 		} else {
-			node.warn("Configuration node not set")
+			node.warn("Configuration node not set");
 		}
 	}
 	RED.nodes.registerType("modbus-out", ModbusOutNode);

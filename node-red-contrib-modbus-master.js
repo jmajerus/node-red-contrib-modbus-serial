@@ -1,4 +1,6 @@
 /**
+ * node-red-contrib-modbus-serial module 
+ * author: John Majerus
  * 
  */
 module.exports = function(RED) {
@@ -7,13 +9,6 @@ module.exports = function(RED) {
 
 		this.port = n.port;
 		this.mode = n.mode;
-	
-		/* this.init = function() {
-			this.serialPort = new SerialPort(this.port, {
-				baudrate : 9600
-			}, false);
-			this.client = new ModbusRTU(this.serialPort);
-		}.bind(this); */
 
 		var globalContext = this.context().global;
 
@@ -25,11 +20,20 @@ module.exports = function(RED) {
 		// create a modbus client using the serial port
 		var ModbusRTU = globalContext.get("modbusRTU");
 		this.client = new ModbusRTU(this.serialPort);
-		var master = this;
+		master = this;
 		
-		this.reconnect = function() {
-			master.client.connectRTU(master.port, {baudrate: 9600});
+		this.connect = function() {
+			if (this.mode == "RTU") {
+				master.client.connectRTU(master.port, {baudrate: 9600});
+			} else if (this.mode == "ASCII") {
+				master.client.connectAsciiSerial(master.port, {baudrate: 9600});
+			} else if (this.mode == "TCP") {
+				master.client.connectTCP(master.port, {baudrate: 9600});
+			} else {
+				node.warn("invalid mode: specify RTU, ASCII, or TCP                                                                                                                   6	67Y");
+			}
 		}
+		this.connect();
 
 	}
 

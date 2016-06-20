@@ -1,4 +1,9 @@
-<script type="text/javascript">
+/**
+ * node-red-contrib-modbus-serial module 
+ * author: John Majerus
+ * 
+ */
+ <script type="text/javascript">
     RED.nodes.registerType('modbus-master',{
         category: 'config',
         defaults: {
@@ -13,7 +18,7 @@
 
 <script type="text/x-red" data-template-name="modbus-master">
     <div class="form-row">
-        <label for="node-config-input-mode"><i class="icon-bookmark"></i> RTU or ASCII</label>
+        <label for="node-config-input-mode"><i class="icon-bookmark"></i> RTU, ASCII, or TCP</label>
         <input type="text" id="node-config-input-mode">
     </div>
     <div class="form-row">

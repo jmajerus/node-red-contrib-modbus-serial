@@ -1,8 +1,8 @@
 /**
+ * node-red-contrib-modbus-serial module 
+ * author: John Majerus
  * 
  */
-
-
 
 function onOpen(err) {
 	var cmd = this.context().get("cmd");
