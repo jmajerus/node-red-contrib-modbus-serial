@@ -1,0 +1,33 @@
+{
+  "name": "node-red-contrib-modbus-serial",
+  "version": "1.0.1",
+  "description": "Modbus subset for cheap modbus relay devices",
+  "author": {
+    "name": "John Majerus",
+    "email": "jmajerus@acm.org",
+    "url": "https://github.com/jmajerus"
+  },
+  "keywords": [
+    "modbus",
+    "serial",
+    "rtu"
+  ],
+  "node-red": {
+        "nodes": {
+            "modbus-master": "node-red-contrib-modbus-master.js",
+			"modbus-in": "node-red-contrib-modbus-in.js",
+			"modbus-out": "node-red-contrib-modbus-out.js"
+        }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmajerus/node-red-contrib-modbus-serial"
+  },
+  "bugs": {
+    "url": "https://github.com/jmajerus/node-red-contrib-modbus-serial/issues"
+  },
+  "license": "(CC BY-NC-SA 3.0 US)",
+  "devDependencies": {
+    "modbus-serial": "latest"
+  }
+}
